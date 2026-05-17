@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mahline Hasan Sabab — Full-Stack Developer & AI Enthusiast</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="Mahline Hasan Sabab - Full-stack developer specializing in AI, machine learning, and cloud technologies." />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    :root {
+      color-scheme: dark;
+      --mx: 50%;
+      --my: 40%;
+      --scroll: 0;
+    }
+
+    * {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans';
+    }
+
+    .icon {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+
+    /* Premium animated background */
+    #fx-bg {
+      background: linear-gradient(135deg, #0b0f14 0%, #0a1220 50%, #0d0b1a 100%);
+      overflow: hidden;
+    }
+
+    #fx-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(1200px 500px at 20% 10%, rgba(59, 130, 246, 0.15), transparent 40%),
+        radial-gradient(1000px 600px at 80% 30%, rgba(168, 85, 247, 0.12), transparent 45%),
+        radial-gradient(800px 400px at 50% 70%, rgba(34, 197, 94, 0.08), transparent 50%);
+      animation: bgShift 20s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(30px, -30px); }
+    }
+
+    /* Scroll-driven background */
+    #fx-bg {
+      background-image:
+        radial-gradient(1100px 520px at 50% calc(120% + var(--scroll)*0.25px), rgba(16, 185, 129, 0.12), transparent 60%),
+        conic-gradient(from calc(var(--scroll)*0.06deg) at 50% 38%,
+          rgba(56, 189, 248, 0.08), rgba(99, 102, 241, 0.10) 25%, rgba(16, 185, 129, 0.08) 50%, rgba(56, 189, 248, 0.08) 75%, rgba(0, 0, 0, 0) 100%),
+        radial-gradient(820px 420px at 85% calc(8% + var(--scroll)*0.18px), rgba(99, 102, 241, 0.12), transparent 60%),
+        radial-gradient(700px 360px at 12% calc(10% + var(--scroll)*0.22px), rgba(56, 189, 248, 0.10), transparent 60%),
+        linear-gradient(160deg, rgb(18 24 38) 0%, rgb(12 18 30) 55%, rgb(10 15 26) 100%);
+      background-attachment: fixed;
+      background-blend-mode: screen, soft-light, normal, normal, normal;
+      will-change: background-position, background-image;
+    }
+
+    /* Enhanced animations */
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px)
+        }
+        to {
+          opacity: 1;
+          transform: none
+        }
+      }
+
+      @keyframes typewriter {
+        from { width: 0 }
+        to { width: 100% }
+      }
+
+      @keyframes caretBlink {
+        50% { border-color: transparent }
+      }
+
+      @keyframes glow {
+        0%, 100% {
+          box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(168, 85, 247, 0.3);
+        }
+        50% {
+          box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(168, 85, 247, 0.5);
+        }
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes pulse {
+        to { box-shadow: 0 0 0 16px rgba(59, 130, 246, 0) }
+      }
+
+      @keyframes gradientShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      .animate-fade-in {
+        animation: fadeInUp .6s ease-out both
+      }
+
+      .animate-type {
+        width: 0;
+        animation:
+          typewriter 3.2s steps(28, end) .3s forwards,
+          caretBlink 1s steps(1, end) infinite;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 2px solid rgba(59, 130, 246, .9);
+      }
+
+      .animate-glow {
+        animation: glow 3s ease-in-out infinite;
+      }
+
+      .animate-float {
+        animation: float 4s ease-in-out infinite;
+      }
+
+      .animate-slide-in {
+        animation: slideInRight 0.8s ease-out;
+      }
+    }
+
+    /* Scroll reveal with stagger */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s cubic-bezier(0.34, 1.56, 0.64, 1), transform .6s cubic-bezier(0.34, 1.56, 0.64, 1)
+    }
+
+    [data-reveal].show {
+      opacity: 1;
+      transform: none
+    }
+
+    /* Enhanced card lift and glow */
+    #work article {
+      transition: transform .25s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                  background-color .25s ease, 
+                  border-color .25s ease,
+                  box-shadow .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #work article::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.05));
+      opacity: 0;
+      transition: opacity .25s ease;
+      z-index: 1;
+    }
+
+    #work article:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+    }
+
+    #work article:hover::before {
+      opacity: 1;
+    }
+
+    /* Header nav enhanced underline */
+    header nav a {
+      position: relative;
+      font-weight: 500;
+      transition: color .3s ease;
+    }
+
+    header nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      height: 2px;
+      width: 100%;
+      background: linear-gradient(90deg, rgba(59, 130, 246, 1), rgba(168, 85, 247, 1));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: .8
+    }
+
+    header nav a:hover::after {
+      transform: scaleX(1)
+    }
+
+    header nav a:hover {
+      color: rgba(59, 130, 246, 1);
+    }
+
+    /* Enhanced button styles */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(168, 85, 247, 0.15));
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      transition: all .3s ease;
+    }
+
+    .btn-primary::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left .5s ease;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(168, 85, 247, 0.3));
+      border-color: rgba(59, 130, 246, 0.8);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    /* Hero chip animation */
+    .hi-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .5rem .9rem;
+      border-radius: .75rem;
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      transition: all .3s ease;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .hi-chip:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    }
+
+    .avatar-ring {
+      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+      transition: all .3s ease;
+    }
+
+    .avatar-ring {
+      animation: pulse 2.4s ease-out infinite, float 4s ease-in-out infinite;
+    }
+
+    .avatar-ring:hover {
+      transform: scale(1.05);
+    }
+
+    /* Gradient text effect */
+    .gradient-text {
+      background: linear-gradient(135deg, #3b82f6 0%, #a855f7 50%, #22c55e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 8s ease infinite;
+      background-size: 200% 200%;
+    }
+
+    /* Section card enhancements */
+    .card-glass {
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      transition: all .3s ease;
+    }
+
+    .card-glass:hover {
+      background: rgba(15, 23, 42, 0.6);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
+    }
+
+    .clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden
+    }
+
+    .clamp-1 {
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden
+    }
+
+    .course {
+      position: relative;
+      padding-left: 1rem;
+    }
+
+    .course::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.7em;
+      width: 0.35rem;
+      height: 0.35rem;
+      border-radius: 9999px;
+      background: rgba(59, 130, 246, 0.6);
+      transition: all .3s ease;
+    }
+
+    @media (hover:hover) {
+      .course:hover {
+        color: rgba(255, 255, 255, 0.95);
+      }
+
+      .course:hover::before {
+        background: rgba(59, 130, 246, 1);
+        transform: scale(1.5);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal] {
+        opacity: 1;
+        transform: none;
+        transition: none
+      }
+
+      .animate-glow {
+        animation: none;
+      }
+
+      .animate-float {
+        animation: none;
+      }
+
+      #work article {
+        transition: none
+      }
+    }
+    
+  </style>
+
+</head>
+
+<body class="min-h-screen text-white selection:bg-blue-400/20">
+  <!-- Background -->
+  <div class="fixed inset-0 -z-50">
+    <div id="fx-bg" class="absolute inset-0"></div>
+  </div>
+
+  <!-- Header/Nav -->
+  <header id="site-header"
+    class="sticky top-0 z-40 border-b border-white/10 bg-black/30 backdrop-blur supports-[backdrop-filter]:bg-black/20">
+    <div class="mx-auto w-full max-w-[1100px] px-3 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-between gap-2 py-4 text-white/80">
+        <!-- Logo (round) -->
+        <div class="flex items-center gap-2">
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-purple-500 font-bold text-white text-sm">
+            MHS
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex flex-wrap justify-center gap-3 sm:gap-5 md:gap-6 text-xs sm:text-sm md:text-base">
+          <a class="hover:text-blue-300" href="#about">About</a>
+          <a class="hover:text-blue-300" href="#education">Education</a>
+          <a class="hover:text-blue-300" href="#work">Work</a>
+          <a class="hover:text-blue-300" href="#experience">Experience</a>
+          <a class="hover:text-blue-300" href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="relative">
+    <div id="portfolio-root" class="mx-auto w-full max-w-[1100px] px-4 sm:px-6 lg:px-8">
+
+      <!-- HERO SECTION -->
+      <section class="pt-12 sm:pt-20 lg:pt-28 pb-8" data-reveal>
+        <div class="mx-auto max-w-4xl text-center">
+          <!-- Enhanced Avatar -->
+          <div
+            class="mx-auto mb-8 h-28 w-28 rounded-full bg-gradient-to-br from-blue-400/40 via-purple-400/30 to-pink-400/20 ring-2 ring-blue-400/50 shadow-2xl flex items-center justify-center text-4xl font-bold animate-glow"
+            style="background-image: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.15));">
+            MHS
+          </div>
+
+          <!-- Greeting chip -->
+          <div class="mb-6 flex justify-center">
+            <div class="hi-chip">
+              <span aria-hidden="true">✨</span>
+              <span class="text-sm font-medium">Welcome to my digital portfolio</span>
+            </div>
+          </div>
+
+          <!-- Main Heading -->
+          <div class="space-y-3 mb-6">
+            <p class="text-base sm:text-lg text-blue-300/90 font-medium">
+              Hi there! I'm
+            </p>
+            <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tighter text-white">
+              <span class="animate-type">Mahline Hasan Sabab</span>
+            </h1>
+          </div>
+
+          <!-- Subtitle with gradient -->
+          <p class="text-lg sm:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 mb-6">
+            A passionate Frontend Developer, Data Management Expert, and B.Sc. in CSE Student at United International University
+          </p>
+
+          <!-- Description -->
+          <p class="text-base sm:text-lg text-white/70 leading-relaxed max-w-2xl mx-auto mb-8">
+            I build accessible user interfaces and manage data-driven systems. I focus on practical solutions, clean code, and well-tested deployments.
+          </p>
+
+          <!-- Contact Info -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-3 text-white/70 text-sm mb-10">
+            <a href="tel:+8801779865867" class="inline-flex items-center gap-2 hover:text-blue-300 transition">
+              <i data-lucide="phone" class="icon"></i> 
+              <span class="hidden sm:inline">+880 1779 865867</span>
+              <span class="sm:hidden">Call</span>
+            </a>
+            <span class="hidden sm:block w-1 h-1 rounded-full bg-white/30"></span>
+            <a href="mailto:msabab222085@bscse.uiu.ac.bd" class="inline-flex items-center gap-2 hover:text-purple-300 transition">
+              <i data-lucide="mail" class="icon"></i> 
+              <span class="hidden sm:inline">msabab222085@bscse.uiu.ac.bd</span>
+              <span class="sm:hidden">Email</span>
+            </a>
+            <span class="hidden sm:block w-1 h-1 rounded-full bg-white/30"></span>
+            <span class="inline-flex items-center gap-2 text-white/50">
+              <i data-lucide="map-pin" class="icon"></i> 
+              <span>Dhaka, Bangladesh</span>
+            </span>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="https://github.com/Sabudragneel" target="_blank" rel="noreferrer noopener"
+              class="btn-primary rounded-xl px-8 py-3 text-white font-semibold inline-flex items-center gap-2">
+              <i data-lucide="gpu" class="icon"></i> GitHub Profile
+            </a>
+            <a href="#contact"
+              class="btn-primary rounded-xl px-8 py-3 text-white font-semibold inline-flex items-center gap-2">
+              <i data-lucide="send" class="icon"></i> Get In Touch
+            </a>
+            <a href="#work"
+              class="rounded-xl px-8 py-3 text-white font-semibold inline-flex items-center gap-2 ring-1 ring-white/20 hover:ring-white/40 hover:bg-white/5 transition">
+              <i data-lucide="arrow-down" class="icon"></i> View Work
+            </a>
+          </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="mt-20 flex justify-center">
+          <div class="inline-flex flex-col items-center gap-2 text-white/40 animate-bounce">
+            <span class="text-xs font-medium">Scroll to explore</span>
+            <i data-lucide="chevron-down" class="icon"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT SECTION -->
+      <section id="about" class="relative mt-20 sm:mt-28" data-reveal>
+        <div class="card-glass rounded-3xl p-8 sm:p-12">
+          <div class="flex items-center gap-3 text-white/90 font-semibold text-lg mb-6">
+            <div class="p-2 rounded-lg bg-blue-400/10 border border-blue-400/30">
+              <i data-lucide="user" class="icon text-blue-400"></i>
+            </div> 
+            About Me
+          </div>
+          <p class="text-white/75 leading-8 text-base mb-5">
+            I'm a passionate full-stack developer with a strong foundation in computer science and a keen interest in artificial intelligence and machine learning. I love turning complex problems into elegant, user-friendly solutions using modern technologies and best practices.
+          </p>
+          <p class="text-white/75 leading-8 text-base">
+            When I'm not coding, you'll find me exploring new technologies, reading about the latest AI advancements, or staying active with sports. I believe in continuous learning and applying those insights to create innovative solutions.
+          </p>
+
+          <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="card-glass rounded-2xl p-5">
+              <div class="text-sm font-semibold text-blue-300 mb-3">Languages</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="rounded-lg bg-blue-400/10 ring-1 ring-blue-400/20 px-3 py-1.5 text-sm text-white/80">Python</span>
+                <span class="rounded-lg bg-purple-400/10 ring-1 ring-purple-400/20 px-3 py-1.5 text-sm text-white/80">JavaScript</span>
+                <span class="rounded-lg bg-pink-400/10 ring-1 ring-pink-400/20 px-3 py-1.5 text-sm text-white/80">Java</span>
+              </div>
+            </div>
+            <div class="card-glass rounded-2xl p-5">
+              <div class="text-sm font-semibold text-green-300 mb-3">Frontend</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="rounded-lg bg-green-400/10 ring-1 ring-green-400/20 px-3 py-1.5 text-sm text-white/80">React</span>
+                <span class="rounded-lg bg-blue-400/10 ring-1 ring-blue-400/20 px-3 py-1.5 text-sm text-white/80">Css</span>
+              </div>
+            </div>
+            <div class="card-glass rounded-2xl p-5">
+              <div class="text-sm font-semibold text-purple-300 mb-3">Backend</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="rounded-lg bg-purple-400/10 ring-1 ring-purple-400/20 px-3 py-1.5 text-sm text-white/80">Node.js</span>
+                <span class="rounded-lg bg-blue-400/10 ring-1 ring-blue-400/20 px-3 py-1.5 text-sm text-white/80">MySQL</span>
+              </div>
+            </div>
+            <div class="card-glass rounded-2xl p-5">
+              <div class="text-sm font-semibold text-pink-300 mb-3">Cloud & AI</div>
+              <div class="flex flex-wrap gap-2">
+                <span class="rounded-lg bg-pink-400/10 ring-1 ring-pink-400/20 px-3 py-1.5 text-sm text-white/80">AWS</span>
+                <span class="rounded-lg bg-purple-400/10 ring-1 ring-purple-400/20 px-3 py-1.5 text-sm text-white/80">ML</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORK SECTION -->
+      <section id="work" class="relative mt-20 sm:mt-28" data-reveal>
+        <div class="mb-8 flex items-end justify-between">
+          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white flex items-center gap-3">
+            <div class="p-3 rounded-lg bg-blue-400/10 border border-blue-400/30">
+              <i data-lucide="briefcase" class="icon text-blue-400"></i>
+            </div>
+            Featured Projects
+          </h2>
+        </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    
+    <!-- Project: pera-nai-vai -->
+    <article class="card-glass rounded-2xl overflow-hidden flex flex-col h-full hover:border-blue-400/60 group">
+      <div class="relative overflow-hidden aspect-[16/9] bg-white/5">
+        <img src="Pera Nai Vai.png"
+          alt="pera-nai-vai" width="1600" height="900" loading="lazy" 
+          class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+      </div>
+      <div class="p-6 flex flex-col flex-grow">
+        <div class="inline-flex items-center gap-2 text-white/90 font-bold text-lg mb-2">
+          <i data-lucide="layers" class="icon text-blue-400"></i> pera-nai-vai
+        </div>
+        <p class="text-sm text-white/70 mb-4 flex-grow">An open-source collection of free online tools designed for the Bengali-speaking community and people of Bangladesh.</p>
+        
+        <!-- Added relative z-10 here -->
+        <a href="https://github.com/Sabudragneel/pera-nai-vai" target="_blank" rel="noreferrer noopener" class="relative z-10 inline-flex items-center gap-2 text-blue-300 hover:text-blue-200">
+          View on GitHub <i data-lucide="external-link" class="icon"></i>
+        </a>
+      </div>
+    </article>
+
+    <!-- Project: uiu-healthcare -->
+    <article class="card-glass rounded-2xl overflow-hidden flex flex-col h-full hover:border-purple-400/60 group">
+      <div class="relative overflow-hidden aspect-[16/9] bg-white/5">
+        <img src="UiU Healthcare.jpg"
+          alt="uiu-healthcare" width="1600" height="900" loading="lazy"
+          class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+      </div>
+      <div class="p-6 flex flex-col flex-grow">
+        <div class="inline-flex items-center gap-2 text-white/90 font-bold text-lg mb-2">
+          <i data-lucide="heart" class="icon text-purple-400"></i> UIU Healthcare
+        </div>
+        <p class="text-sm text-white/70 mb-4 flex-grow">A telemedicine platform connecting patients with doctors through an integrated digital healthcare ecosystem.</p>
+        
+        <!-- Added relative z-10 here -->
+        <a href="https://github.com/Sabudragneel/uiu-healthcare/tree/main" target="_blank" rel="noreferrer noopener" class="relative z-10 inline-flex items-center gap-2 text-purple-300 hover:text-purple-200">
+          View on GitHub <i data-lucide="external-link" class="icon"></i>
+        </a>
+      </div>
+    </article>
+
+    <!-- Project: cricket-managment -->
+    <article class="card-glass rounded-2xl overflow-hidden flex flex-col h-full hover:border-green-400/60 group">
+      <div class="relative overflow-hidden aspect-[16/9] bg-white/5">
+        <img src="Cricket management.jpg"
+          alt="cricket-managment" width="1600" height="900" loading="lazy"
+          class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+      </div>
+      <div class="p-6 flex flex-col flex-grow">
+        <div class="inline-flex items-center gap-2 text-white/90 font-bold text-lg mb-2">
+          <i data-lucide="award" class="icon text-green-400"></i> cricket-managment
+        </div>
+        <p class="text-sm text-white/70 mb-4 flex-grow">A web-based cricket tournament management system for scheduling, team building, and match tracking.</p>
+        
+        <!-- Added relative z-10 here -->
+        <a href="https://github.com/Sabudragneel/cricket-managment" target="_blank" rel="noreferrer noopener" class="relative z-10 inline-flex items-center gap-2 text-green-300 hover:text-green-200">
+          View on GitHub <i data-lucide="external-link" class="icon"></i>
+        </a>
+      </div>
+    </article>
+    
+  </div>
+</section>
+      <!-- EDUCATION SECTION -->
+      <section id="education" class="relative mt-20 sm:mt-28" data-reveal>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white flex items-center gap-3 mb-8">
+          <div class="p-3 rounded-lg bg-blue-400/10 border border-blue-400/30">
+            <i data-lucide="graduation-cap" class="icon text-blue-400"></i>
+          </div>
+          Education
+        </h2>
+
+  <div class="space-y-4">
+    
+    <!-- B.Sc. Block -->
+    <div class="card-glass rounded-2xl p-6 sm:p-8 hover:border-blue-400/60">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
+        <div>
+          <h3 class="text-white font-bold text-lg">B.Sc. Computer Science & Engineering</h3>
+          <p class="text-sm text-white/60">United International University, Dhaka</p>
+        </div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-400/10 ring-1 ring-blue-400/30 text-sm text-blue-200">
+          <i data-lucide="calendar" class="icon"></i> Expected Nov 2025
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <span class="rounded-full bg-green-400/10 text-green-200 ring-1 ring-green-400/30 px-3 py-1 text-xs">
+          CGPA: 2.45/4.00
+        </span>
+        <span class="rounded-full bg-blue-400/10 text-blue-200 ring-1 ring-blue-400/30 px-3 py-1 text-xs">
+          ≈ 86% (university scale)
+        </span>
+      </div>
+    </div>
+
+    <!-- HSC Block -->
+    <div class="card-glass rounded-2xl p-6 sm:p-8 hover:border-purple-400/60">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
+        <div>
+          <h3 class="text-white font-bold text-lg">HSC - Science</h3>
+          <p class="text-sm text-white/60">B.A.F Shaheen College, Dhaka</p>
+        </div>
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-400/10 ring-1 ring-purple-400/30 text-sm text-purple-200">2019</span>
+      </div>
+      <span class="rounded-full bg-yellow-400/10 text-yellow-200 ring-1 ring-yellow-400/30 px-3 py-1 text-xs inline-block">
+        GPA: 4.75/5.00
+      </span>
+    </div>
+
+    <!-- SSC Block -->
+    <div class="card-glass rounded-2xl p-6 sm:p-8 hover:border-rose-400/60">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
+        <div>
+          <h3 class="text-white font-bold text-lg">SSC - Science</h3>
+          <p class="text-sm text-white/60">Ideal School And College, Dhaka</p>
+        </div>
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-400/10 ring-1 ring-rose-400/30 text-sm text-rose-200">2017</span>
+      </div>
+      <span class="rounded-full bg-orange-400/10 text-orange-200 ring-1 ring-orange-400/30 px-3 py-1 text-xs inline-block">
+        GPA: 5.00/5.00
+      </span>
+    </div>
+
+  </div>
+</section>
+
+      <!-- EXPERIENCE SECTION -->
+      <section id="experience" class="relative mt-20 sm:mt-28" data-reveal>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white flex items-center gap-3 mb-8">
+          <div class="p-3 rounded-lg bg-blue-400/10 border border-blue-400/30">
+            <i data-lucide="briefcase" class="icon text-blue-400"></i>
+          </div>
+          Experience
+        </h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="card-glass rounded-2xl p-8 hover:border-blue-400/60">
+            <div class="flex items-start gap-3 mb-4">
+              <div class="p-3 rounded-lg bg-blue-400/10">
+                <i data-lucide="users" class="icon text-blue-400"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-bold">Lead — Gaming (Strategy, Mechanics & Guide)</h3>
+                <p class="text-sm text-white/60">Freelance</p>
+                <p class="text-xs text-white/40 mt-1">2020–Present • Remote • Dhaka</p>
+              </div>
+            </div>
+            <ul class="space-y-2 text-white/70 text-sm">
+              <li class="flex gap-2">
+                <i data-lucide="dices" class="icon text-green-400 flex-shrink-0 mt-0.5"></i>
+                <span>Managed competitive sessions focused on game mechanics, team strategy, and hardware optimization.</span>
+              </li>
+              <li class="flex gap-2">
+                <i data-lucide="dices" class="icon text-green-400 flex-shrink-0 mt-0.5"></i>
+                <span>Utilized real-time gameplay analysis and "VOD reviews" to sharpen decision-making.</span>
+              </li>
+              <li class="flex gap-2">
+                <i data-lucide="dices" class="icon text-green-400 flex-shrink-0 mt-0.5"></i>
+                <span>Guided hands-on PC assembly and software tuning to maximize performance and practical technical skills.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card-glass rounded-2xl p-8 hover:border-purple-400/60">
+            <div class="flex items-start gap-3 mb-4">
+              <div class="p-3 rounded-lg bg-purple-400/10">
+                <i data-lucide="code" class="icon text-purple-400"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-bold">Full-Stack Developer</h3>
+                <p class="text-sm text-white/60">Freelance</p>
+                <p class="text-xs text-white/40 mt-1">2023–Present • Remote</p>
+              </div>
+            </div>
+            <ul class="space-y-2 text-white/70 text-sm">
+              <li class="flex gap-2">
+                <i data-lucide="check-circle" class="icon text-purple-400 flex-shrink-0 mt-0.5"></i>
+                <span>React + javaScript for modern responsive UIs</span>
+              </li>
+              <li class="flex gap-2">
+                <i data-lucide="check-circle" class="icon text-purple-400 flex-shrink-0 mt-0.5"></i>
+                <span>Node.js/Express backend with MySQL databases</span>
+              </li>
+              <li class="flex gap-2">
+                <i data-lucide="check-circle" class="icon text-purple-400 flex-shrink-0 mt-0.5"></i>
+                <span>Docker deployment and CI/CD pipelines</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <section id="contact" class="relative mt-20 sm:mt-28 pb-20" data-reveal>
+        <div class="card-glass rounded-3xl p-8 sm:p-12 text-center">
+          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">Let's Work Together</h2>
+          <p class="text-white/70 text-lg mb-10 max-w-2xl mx-auto">
+            I'm always open to new opportunities and collaborations. Feel free to reach out!
+          </p>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+            <a href="mailto:msabab222085@bscse.uiu.ac.bd"
+              class="group card-glass rounded-2xl p-6 hover:border-blue-400/60">
+              <i data-lucide="mail" class="icon text-blue-400 mx-auto mb-3"></i>
+              <p class="text-white font-semibold mb-1">Email</p>
+              <p class="text-sm text-white/60 group-hover:text-white/80">msabab222085@bscse.uiu.ac.bd</p>
+            </a>
+            <a href="https://github.com/Sabudragneel" target="_blank" rel="noreferrer noopener"
+              class="group card-glass rounded-2xl p-6 hover:border-purple-400/60">
+              <i data-lucide="gpu" class="icon text-purple-400 mx-auto mb-3"></i>
+              <p class="text-white font-semibold mb-1">GitHub</p>
+              <p class="text-sm text-white/60 group-hover:text-white/80">@Sabudragneel</p>
+            </a>
+            <a href="tel:+8801779865867"
+              class="group card-glass rounded-2xl p-6 hover:border-pink-400/60">
+              <i data-lucide="phone" class="icon text-pink-400 mx-auto mb-3"></i>
+              <p class="text-white font-semibold mb-1">Phone</p>
+              <p class="text-sm text-white/60 group-hover:text-white/80">+880 1779 865867</p>
+            </a>
+          </div>
+
+          <div class="flex gap-4 justify-center mb-8">
+            <a href="https://github.com/Sabudragneel" target="_blank" rel="noreferrer noopener"
+              class="btn-primary rounded-xl px-8 py-3 text-white font-semibold inline-flex items-center gap-2">
+              <i data-lucide="gpu" class="icon"></i> GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-12 flex items-center justify-between">
+          <p class="text-white/40 text-sm">© <span id="year"></span> Mahline Hasan Sabab. All rights reserved.</p>
+          <a href="#top" class="group inline-flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-white/5 ring-1 ring-white/20 text-sm text-white/60 hover:text-white/80 transition">
+            <i data-lucide="arrow-up" class="icon group-hover:-translate-y-1 transition"></i> Back to top
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Scroll-to-top button -->
+  <button id="scrollTopBtn" aria-label="Scroll to top"
+    class="fixed bottom-8 right-8 z-50 hidden rounded-full bg-blue-500/20 ring-1 ring-blue-400/50 p-3 text-white/80 hover:text-white hover:bg-blue-500/40 transition">
+    <i data-lucide="arrow-up" class="icon"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script>
+    // Icons + Year
+    document.addEventListener('DOMContentLoaded', function () {
+      try { if (window.lucide && lucide.createIcons) { lucide.createIcons(); } } catch (e) { }
+      var y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+    });
+
+    // Reactive background
+    (function () {
+      var last = -1;
+      function onScroll() {
+        var y = Math.max(0, Math.min(2000, window.scrollY));
+        if (y !== last) { last = y; document.documentElement.style.setProperty('--scroll', y.toFixed(1)); }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    // Scroll-to-top button
+    (function () {
+      var btn = document.getElementById('scrollTopBtn'); if (!btn) return;
+      function toggle() { if (window.scrollY > 320) btn.classList.remove('hidden'); else btn.classList.add('hidden'); }
+      window.addEventListener('scroll', toggle, { passive: true });
+      btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      toggle();
+    })();
+
+    // Scroll reveal
+    (function () {
+      var els = document.querySelectorAll('[data-reveal]');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('show'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+
+    // Type animation
+    window.addEventListener('load', function () {
+      var t = document.querySelector('.type-line');
+      if (t) t.classList.add('type-run');
+    });
+  </script>
+</body>
+
+</html>

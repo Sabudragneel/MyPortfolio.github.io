@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Desktop Chat Application — Java • Swing • Sockets</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { base: "#0b1220", base2: "#111827" },
+          boxShadow: { glass: "0 8px 30px rgba(0,0,0,0.12)" }
+        }
+      }
+    }
+  </script>
+  <style>
+    body{ font-family:'Inter',ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,'Noto Sans'; }
+    :root { --hue: 210; --scroll:0; }
+    body{
+      min-height:100vh;
+      background:linear-gradient(180deg,
+        hsl(var(--hue) 50% 10%) 0%,
+        hsl(calc(var(--hue)+20) 50% 8%) 50%,
+        hsl(calc(var(--hue)+40) 55% 6%) 100%);
+      background-attachment:fixed;
+    }
+    .glass{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:border-color .2s ease,transform .2s ease,background-color .2s ease;}
+    .card-hover:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.16);} 
+    img{border-radius:.75rem;border:1px solid rgba(255,255,255,.10);} 
+    .site-shot{width:100%;max-width:420px;height:auto;margin-left:auto;margin-right:auto;}
+    @media (min-width:1024px){.site-shot{max-width:360px;}}
+    .reveal{opacity:0;transform:translateY(10px);} .reveal.show{opacity:1;transform:none;}
+    @media (prefers-reduced-motion:no-preference){.reveal.show{animation:fadeUp .6s ease-out both;} @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}}
+  </style>
+  <style id="friend-theme">
+    #fx-bg {
+      background-image:
+        radial-gradient(1100px 520px at 50% calc(120% + var(--scroll)*0.25px), rgba(16,185,129,0.12), transparent 60%),
+        conic-gradient(from calc(var(--scroll)*0.06deg) at 50% 38%, rgba(56,189,248,0.08), rgba(99,102,241,0.10) 25%, rgba(16,185,129,0.08) 50%, rgba(56,189,248,0.08) 75%, rgba(0,0,0,0) 100%),
+        radial-gradient(820px 420px at 85% calc(8% + var(--scroll)*0.18px), rgba(99,102,241,0.12), transparent 60%),
+        radial-gradient(700px 360px at 12% calc(10% + var(--scroll)*0.22px), rgba(56,189,248,0.10), transparent 60%),
+        linear-gradient(160deg, rgb(18 24 38) 0%, rgb(12 18 30) 55%, rgb(10 15 26) 100%);
+      background-attachment: fixed; background-blend-mode: screen, soft-light, normal, normal, normal;
+    }
+  </style>
+  <!-- React UMD -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="min-h-screen text-white antialiased">
+  <div class="fixed inset-0 -z-50"><div id="fx-bg" class="absolute inset-0"></div></div>
+  <noscript class="block p-4 text-center text-sm text-white/70">This preview uses React for layout. Please enable JavaScript.</noscript>
+  <div id="root"></div>
+
+  <script type="text/babel" data-presets="env,react">
+    "use strict";
+    /* Lucide-style SVG React components */
+    const Lucide = ({ children, size = 18, className = "" }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>
+    );
+
+    // FIX: remove stray extra ')' that caused "Missing semicolon" parse error
+    const IconGithub = (p) => (
+      <Lucide {...p}>
+        <path d="M9 19c-4 2-5-2-7-2" />
+        <path d="M15 22v-3.4a3.4 3.4 0 0 0-.9-2.6c3.1-.35 6.4-1.5 6.4-7A5.5 5.5 0 0 0 16 4a13 13 0 0 0-8 0A5.5 5.5 0 0 0 4 6c0 5.5 3.3 6.6 6.4 7a3.4 3.4 0 0 0-.9 2.6V22" />
+      </Lucide>
+    );
+    const IconExternal = (p) => (
+      <Lucide {...p}>
+        <path d="M15 3h6v6" />
+        <path d="M10 14 21 3" />
+        <path d="M21 14v7H3V3h7" />
+      </Lucide>
+    );
+    const IconArrowLeft = (p) => (
+      <Lucide {...p}>
+        <path d="M19 12H5" />
+        <path d="M12 19 5 12l7-7" />
+      </Lucide>
+    );
+    const IconArrowUp = (p) => (
+      <Lucide {...p}>
+        <path d="M12 19V5" />
+        <path d="M5 12l7-7 7 7" />
+      </Lucide>
+    );
+    const IconRadio = (p) => (
+      <Lucide {...p}>
+        <path d="M4 12h16" />
+        <path d="M2 12h.01" />
+        <path d="M20 12h.01" />
+        <path d="M7 12v4" />
+        <path d="M17 12v4" />
+        <rect x="7" y="16" width="10" height="4" rx="1" />
+      </Lucide>
+    );
+    const IconCpu = (p) => (
+      <Lucide {...p}>
+        <rect x="4" y="4" width="16" height="16" rx="2" />
+        <rect x="9" y="9" width="6" height="6" rx="1" />
+        <path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3" />
+      </Lucide>
+    );
+    const IconLayout = (p) => (
+      <Lucide {...p}>
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M12 4v16" />
+        <path d="M3 10h18" />
+      </Lucide>
+    );
+
+    const Section = ({ title, children }) => (
+      <section className="glass rounded-xl p-5 shadow-glass reveal card-hover">
+        <h2 className="text-xl font-semibold mb-3">{title}</h2>
+        <div className="text-white/80 leading-relaxed">{children}</div>
+      </section>
+    );
+
+    const TechItem = ({ icon, label, text }) => (
+      <div className="glass rounded-lg p-4 card-hover reveal">
+        <div className="flex items-center gap-2 font-medium text-white/90">{icon} {label}</div>
+        <p className="text-sm text-white/80 mt-1">{text}</p>
+      </div>
+    );
+
+    const LinkButton = ({ href, children }) => (
+      <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-white/20 rounded-full px-3 py-1 text-sm hover:bg-white/10 transition-colors">
+        {children} <IconExternal />
+      </a>
+    );
+
+    const App = () => {
+      React.useEffect(() => {
+        const els = document.querySelectorAll('.reveal');
+        const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); }); }, { threshold: 0.15 });
+        els.forEach(el => io.observe(el));
+        return () => io.disconnect();
+      }, []);
+
+      return (
+        <main id="top" className="max-w-5xl mx-auto px-4 sm:px-6 py-6 md:py-8 grid gap-4 md:gap-5">
+          {/* Back to portfolio (outside the card) */}
+          <div className="-mt-2 mb-2">
+            <button id="backBtn" onClick={() => (history.length > 1 ? history.back() : (window.location.hash = '#work'))} className="inline-flex items-center gap-2 rounded-xl px-3 py-2 bg-white/[0.03] ring-1 ring-white/10 text-white/80 hover:text-white">
+              <IconArrowLeft /> Back to portfolio
+            </button>
+          </div>
+
+          <header className="glass rounded-xl p-5 reveal">
+            <h1 className="text-2xl md:text-3xl font-bold">Desktop Chat Application</h1>
+            <p className="mt-3 text-white/80">A simple real-time chat built as a first-year OOP project using Java, Swing, and Sockets. Multi-client architecture with a central server.</p>
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <LinkButton href="https://github.com/Sabudragneel/ChatApp"><IconGithub /> GitHub Repository</LinkButton>
+            </div>
+          </header>
+
+          <Section title="Project Goals">
+            <ul className="grid gap-1.5">
+              <li className="flex items-start gap-2"><span className="mt-1 text-emerald-400"><IconRadio /></span><span><b>Learn OOP by building:</b> classes, objects, encapsulation in a real app.</span></li>
+              <li className="flex items-start gap-2"><span className="mt-1 text-emerald-400"><IconLayout /></span><span><b>GUI with Swing:</b> simple, friendly chat UI.</span></li>
+              <li className="flex items-start gap-2"><span className="mt-1 text-emerald-400"><IconCpu /></span><span><b>Understand networking:</b> client–server messaging with Java Sockets.</span></li>
+              <li className="flex items-start gap-2"><span className="mt-1 text-emerald-400"><IconRadio /></span><span><b>Functional chat room:</b> users join and converse in real time.</span></li>
+            </ul>
+          </Section>
+
+          <section className="glass rounded-xl p-5 shadow-glass reveal">
+            <h2 className="text-xl font-semibold mb-3">Technologies Used</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+              <TechItem icon={<IconCpu className="text-white/90" />} label="Language" text="Java" />
+              <TechItem icon={<IconLayout className="text-white/90" />} label="GUI" text="Swing" />
+              <TechItem icon={<IconRadio className="text-white/90" />} label="Networking" text="Java Sockets" />
+              <TechItem icon={<IconExternal className="text-white/90" />} label="Architecture" text="Client–Server" />
+            </div>
+          </section>
+
+          <Section title="My Work on the Project's Features">
+            <div className="grid gap-3">
+              <div className="glass rounded-lg p-4 card-hover reveal">
+                <h3 className="font-medium">1) Client–Server Architecture</h3>
+                <p className="text-sm mt-1">Central server accepts sockets and broadcasts messages to connected clients; clients manage their own send/receive loops.</p>
+              </div>
+              <div className="glass rounded-lg p-4 card-hover reveal">
+                <h3 className="font-medium">2) Simple Swing UI</h3>
+                <p className="text-sm mt-1">Main chat window, scrollable message area, input field + send action; keyboard shortcuts for quick send.</p>
+              </div>
+              <div className="glass rounded-lg p-4 card-hover reveal">
+                <h3 className="font-medium">3) Real‑Time Messaging</h3>
+                <p className="text-sm mt-1">Server relays messages instantly; basic thread‑safe buffers to avoid blocking the UI.</p>
+              </div>
+              <div className="glass rounded-lg p-4 card-hover reveal">
+                <h3 className="font-medium">4) Object‑Oriented Design</h3>
+                <p className="text-sm mt-1"><code>Server</code>, <code>Client</code>, and <code>Message</code> classes separate concerns and keep the code tidy for coursework review.</p>
+              </div>
+            </div>
+          </Section>
+
+          <Section title="Project Snapshot">
+            <div className="grid md:grid-cols-2 items-start gap-4">
+              <div>
+                <h3 className="font-medium">Desktop UI</h3>
+                <p className="text-sm mt-1">Lightweight desktop layout used in the assignment. (Provide an actual screenshot later and I’ll plug it in.)</p>
+              </div>
+              <div className="md:justify-self-end">
+                <img loading="lazy" className="site-shot transition-transform duration-300 will-change-transform hover:scale-105" alt="ChatApp — Desktop" src="https://cdn.jsdelivr.net/gh/Sabudragneel/portfolio-images@main/f8ab08b9-041f-46fe-9759-be30bec3d634-cover.png" onError={(e)=>{e.currentTarget.onerror=null;e.currentTarget.src='https://raw.githubusercontent.com/Sabudragneel/portfolio-images/main/f8ab08b9-041f-46fe-9759-be30bec3d634-cover.png';}} />
+              </div>
+            </div>
+          </Section>
+
+          <section className=" rounded-xl p-4 text-center text-white/80 reveal">© {new Date().getFullYear()} Mahline Hasan Sabab. All rights reserved.</section>
+        </main>
+      );
+    };
+
+    // reactive hue + bg motion
+    (function(){
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (mq.matches) return;
+      let last = -1;
+      function onScroll(){
+        const y = Math.max(0, Math.min(2000, window.scrollY));
+        if (y !== last) { last = y; document.documentElement.style.setProperty('--scroll', y.toFixed(1)); }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      let ticking = false;
+      const updateHue = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const ratio = max > 0 ? window.scrollY / max : 0;
+        const hue = 210 + ratio * 80;
+        document.documentElement.style.setProperty('--hue', hue.toFixed(1));
+        ticking = false;
+      };
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(updateHue); ticking = true; }
+      }, { passive: true });
+      updateHue();
+    })();
+
+    // Back-to-top button behaviour — initialize after DOM is ready so button exists
+    (function(){
+      function setup(){
+        const btn = document.getElementById('scrollTopBtn');
+        if (!btn) return;
+        const toggle = () => { if (window.scrollY > 320) btn.classList.remove('hidden'); else btn.classList.add('hidden'); };
+        window.addEventListener('scroll', toggle, { passive: true });
+        btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        toggle();
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup); else setup();
+    })();
+
+    // sanity checks (tests)
+    function runTests(){
+      const tests = [];
+      const img = { alt: 'ChatApp — Desktop', src: 'https://cdn.jsdelivr.net/gh/Sabudragneel/portfolio-images@main/f8ab08b9-041f-46fe-9759-be30bec3d634-cover.png' };
+      const el = Array.from(document.querySelectorAll('img')).find(i => i.alt === img.alt);
+      tests.push({ name: 'snapshot-present', pass: !!el });
+      tests.push({ name: 'snapshot-src-includes', pass: el ? el.src.includes('f8ab08b9-041f-46fe-9759-be30bec3d634-cover.png') : false });
+      const h1 = document.querySelector('h1');
+      tests.push({ name: 'title-contains-Chat', pass: !!h1 && /Desktop Chat Application/.test(h1.textContent) });
+      const repo = Array.from(document.querySelectorAll('a')).find(a => a.textContent.includes('GitHub Repository'));
+      tests.push({ name: 'repo-link-correct', pass: !!repo && /Sabudragneel\/ChatApp/.test(repo.href) });
+      tests.push({ name: 'back-button-exists', pass: !!document.getElementById('backBtn') });
+      tests.push({ name: 'back-to-top-exists', pass: !!document.getElementById('scrollTopBtn') });
+      // extra tests
+      const techCards = document.querySelectorAll('h2 + div > div');
+      tests.push({ name: 'four-tech-cards', pass: techCards.length >= 4 });
+      const goals = document.querySelectorAll('section h2');
+      const hasGoals = Array.from(goals).some(h => /Project Goals/i.test(h.textContent));
+      tests.push({ name: 'has-project-goals', pass: hasGoals });
+      console.table(tests);
+      console.assert(tests.every(t => t.pass), 'Some tests failed. See table above.');
+    }
+    window.addEventListener('load', runTests);
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+
+  <!-- Back to top floating button -->
+  <button id="scrollTopBtn" aria-label="Back to top" class="fixed bottom-5 right-5 z-50 hidden rounded-full bg-white/10 ring-1 ring-white/15 px-3 py-2 text-white/80 hover:text-white">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5"/><path d="M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+</body>
+</html>
