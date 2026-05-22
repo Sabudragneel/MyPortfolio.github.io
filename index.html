@@ -375,7 +375,52 @@
         transition: none
       }
     }
-    
+
+    /* Photo fullscreen lightbox */
+    #photo-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 1rem;
+    }
+
+    #photo-lightbox.show {
+      display: flex;
+    }
+
+    #photo-lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
+    }
+
+    #photo-lightbox button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: none;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+
+    #photo-lightbox button:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    section {
+      scroll-margin-top: 6rem;
+    }
   </style>
 
 </head>
@@ -403,6 +448,7 @@
           <a class="hover:text-blue-300" href="#about">About</a>
           <a class="hover:text-blue-300" href="#education">Education</a>
           <a class="hover:text-blue-300" href="#work">Work</a>
+          <a class="hover:text-blue-300" href="#extracurriculars">Extracurriculars</a>
           <a class="hover:text-blue-300" href="#experience">Experience</a>
           <a class="hover:text-blue-300" href="#contact">Contact</a>
         </nav>
@@ -543,7 +589,65 @@
           </div>
         </div>
       </section>
+<!-- EDUCATION SECTION -->
+      <section id="education" class="relative mt-20 sm:mt-28" data-reveal>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white flex items-center gap-3 mb-8">
+          <div class="p-3 rounded-lg bg-blue-400/10 border border-blue-400/30">
+            <i data-lucide="graduation-cap" class="icon text-blue-400"></i>
+          </div>
+          Education
+        </h2>
 
+  <div class="space-y-4">
+    
+    <!-- B.Sc. Block -->
+    <div class="card-glass rounded-2xl p-6 sm:p-8 hover:border-blue-400/60">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
+        <div>
+          <h3 class="text-white font-bold text-lg">B.Sc. Computer Science & Engineering</h3>
+          <p class="text-sm text-white/60">United International University, Dhaka</p>
+        </div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-400/10 ring-1 ring-blue-400/30 text-sm text-blue-200">
+          <i data-lucide="calendar" class="icon"></i> 2026
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <span class="rounded-full bg-green-400/10 text-green-200 ring-1 ring-green-400/30 px-3 py-1 text-xs">
+          CGPA: 2.45/4.00
+        </span>
+      </div>
+    </div>
+
+    <!-- HSC Block -->
+    <div class="card-glass rounded-2xl p-6 sm:p-8 hover:border-purple-400/60">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
+        <div>
+          <h3 class="text-white font-bold text-lg">Higher Secondary Certificate - Science</h3>
+          <p class="text-sm text-white/60">B.A.F Shaheen College, Dhaka</p>
+        </div>
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-400/10 ring-1 ring-purple-400/30 text-sm text-purple-200"><i data-lucide="calendar" class="icon"></i> 2019</span>
+      </div>
+      <span class="rounded-full bg-yellow-400/10 text-yellow-200 ring-1 ring-yellow-400/30 px-3 py-1 text-xs inline-block">
+        GPA: 4.75/5.00
+      </span>
+    </div>
+
+    <!-- SSC Block -->
+    <div class="card-glass rounded-2xl p-6 sm:p-8 hover:border-rose-400/60">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
+        <div>
+          <h3 class="text-white font-bold text-lg">Secondary School Certificate - Science</h3>
+          <p class="text-sm text-white/60">Ideal School And College, Dhaka</p>
+        </div>
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-400/10 ring-1 ring-rose-400/30 text-sm text-rose-200"><i data-lucide="calendar" class="icon"></i>2017</span>
+      </div>
+      <span class="rounded-full bg-orange-400/10 text-orange-200 ring-1 ring-orange-400/30 px-3 py-1 text-xs inline-block">
+        GPA: 5.00/5.00
+      </span>
+    </div>
+
+  </div>
+</section>
       <!-- WORK SECTION -->
       <section id="work" class="relative mt-20 sm:mt-28" data-reveal>
         <div class="mb-8 flex items-end justify-between">
@@ -619,65 +723,57 @@
     
   </div>
 </section>
-      <!-- EDUCATION SECTION -->
-      <section id="education" class="relative mt-20 sm:mt-28" data-reveal>
+
+      <!-- EXTRACURRICULARS SECTION -->
+      <section id="extracurriculars" class="relative mt-20 sm:mt-28" data-reveal>
         <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white flex items-center gap-3 mb-8">
           <div class="p-3 rounded-lg bg-blue-400/10 border border-blue-400/30">
-            <i data-lucide="graduation-cap" class="icon text-blue-400"></i>
+            <i data-lucide="layers" class="icon text-blue-400"></i>
           </div>
-          Education
+          Extracurricular Activities
         </h2>
 
-  <div class="space-y-4">
-    
-    <!-- B.Sc. Block -->
-    <div class="card-glass rounded-2xl p-6 sm:p-8 hover:border-blue-400/60">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
-        <div>
-          <h3 class="text-white font-bold text-lg">B.Sc. Computer Science & Engineering</h3>
-          <p class="text-sm text-white/60">United International University, Dhaka</p>
-        </div>
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-400/10 ring-1 ring-blue-400/30 text-sm text-blue-200">
-          <i data-lucide="calendar" class="icon"></i> Expected Nov 2025
-        </div>
-      </div>
-      <div class="flex flex-wrap gap-2">
-        <span class="rounded-full bg-green-400/10 text-green-200 ring-1 ring-green-400/30 px-3 py-1 text-xs">
-          CGPA: 2.45/4.00
-        </span>
-      </div>
-    </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Basketball Playlist -->
+          <article class="card-glass rounded-2xl p-6">
+            <div class="inline-flex items-center gap-2 text-white/90 font-bold text-lg mb-3">
+              <i data-lucide="award" class="icon text-pink-400"></i>Highschool Basketball Player
+            </div>
+            <img src="Basketball Team.JPG" alt="Highschool Basketball Team" class="w-full h-60 object-cover rounded-2xl mb-4 shadow-lg" loading="lazy" />
+            <p class="text-sm text-white/70 mb-4">A snapshot from highschool basketball days with the team.</p>
+          </article>
 
-    <!-- HSC Block -->
-    <div class="card-glass rounded-2xl p-6 sm:p-8 hover:border-purple-400/60">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
-        <div>
-          <h3 class="text-white font-bold text-lg">Higher Secondary Certificate - Science</h3>
-          <p class="text-sm text-white/60">B.A.F Shaheen College, Dhaka</p>
-        </div>
-        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-400/10 ring-1 ring-purple-400/30 text-sm text-purple-200">2019</span>
-      </div>
-      <span class="rounded-full bg-yellow-400/10 text-yellow-200 ring-1 ring-yellow-400/30 px-3 py-1 text-xs inline-block">
-        GPA: 4.75/5.00
-      </span>
-    </div>
+          <!-- World Tour Gallery -->
+          <article class="card-glass rounded-2xl p-6">
+            <div class="inline-flex items-center gap-2 text-white/90 font-bold text-lg mb-3">
+              <i data-lucide="globe" class="icon text-green-400"></i> World Tour
+            </div>
+            <p class="text-sm text-white/70 mb-4">A small selection of travel photos from around the world.</p>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <img src="Indian tour.JPG" alt="Indian Tour" class="w-full h-40 object-cover rounded-lg" loading="lazy" />
+              <img src="NEpal tour.jpg" alt="Nepal Tour" class="w-full h-40 object-cover rounded-lg" loading="lazy" />
+              <img src="thai tour.jpg" alt="Thai Tour" class="w-full h-40 object-cover rounded-lg" loading="lazy" />
+              <img src="Thailand tour.jpg" alt="Thailand Tour" class="w-full h-40 object-cover rounded-lg" loading="lazy" />
+            </div>
+          </article>
 
-    <!-- SSC Block -->
-    <div class="card-glass rounded-2xl p-6 sm:p-8 hover:border-rose-400/60">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-3">
-        <div>
-          <h3 class="text-white font-bold text-lg">Secondary School Certificate - Science</h3>
-          <p class="text-sm text-white/60">Ideal School And College, Dhaka</p>
+          <!-- Photography -->
+          <article class="card-glass rounded-2xl p-6">
+            <div class="inline-flex items-center gap-2 text-white/90 font-bold text-lg mb-3">
+              <i data-lucide="camera" class="icon text-blue-400"></i> Photography
+            </div>
+            <p class="text-sm text-white/70 mb-4">Selected photoshoot images from recent shoots.</p>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <a href="photoshot india.jpg" target="_blank" rel="noreferrer noopener"><img src="photoshot india.jpg" alt="Photoshoot India" class="w-full h-40 object-cover rounded-lg" loading="lazy" /></a>
+              <a href="photoshot thai.jpg" target="_blank" rel="noreferrer noopener"><img src="photoshot thai.jpg" alt="Photoshoot Thailand" class="w-full h-40 object-cover rounded-lg" loading="lazy" /></a>
+              <a href="Photoshot.jpg" target="_blank" rel="noreferrer noopener"><img src="Photoshot.jpg" alt="Photoshoot" class="w-full h-40 object-cover rounded-lg" loading="lazy" /></a>
+              <a href="photshot day.jpg" target="_blank" rel="noreferrer noopener"><img src="photshot day.jpg" alt="Photoshoot Day" class="w-full h-40 object-cover rounded-lg" loading="lazy" /></a>
+            </div>
+          </article>
         </div>
-        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-rose-400/10 ring-1 ring-rose-400/30 text-sm text-rose-200">2017</span>
-      </div>
-      <span class="rounded-full bg-orange-400/10 text-orange-200 ring-1 ring-orange-400/30 px-3 py-1 text-xs inline-block">
-        GPA: 5.00/5.00
-      </span>
-    </div>
+      </section>
 
-  </div>
-</section>
+      
 
       <!-- EXPERIENCE SECTION -->
       <section id="experience" class="relative mt-20 sm:mt-28" data-reveal>
@@ -799,6 +895,11 @@
     <i data-lucide="arrow-up" class="icon"></i>
   </button>
 
+  <div id="photo-lightbox" role="dialog" aria-modal="true" aria-label="Fullscreen photo viewer">
+    <button type="button" aria-label="Close photo viewer">×</button>
+    <img src="" alt="Fullscreen photo" />
+  </div>
+
   <!-- Scripts -->
   <script>
     // Icons + Year
@@ -842,6 +943,55 @@
       var t = document.querySelector('.type-line');
       if (t) t.classList.add('type-run');
     });
+
+    // Fullscreen photo viewer
+    ;(function () {
+      var lightbox = document.getElementById('photo-lightbox');
+      var lightboxImage = lightbox && lightbox.querySelector('img');
+      var closeButton = lightbox && lightbox.querySelector('button');
+
+      function openLightbox(src, alt) {
+        if (!lightbox || !lightboxImage) return;
+        lightboxImage.src = src;
+        lightboxImage.alt = alt || 'Fullscreen photo';
+        lightbox.classList.add('show');
+      }
+
+      function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('show');
+        if (lightboxImage) lightboxImage.src = '';
+      }
+
+      function onPhotoClick(event) {
+        var target = event.target;
+        if (target.tagName !== 'IMG') return;
+        var parentLink = target.closest('a');
+        if (parentLink && parentLink.href && parentLink.href !== window.location.href) {
+          event.preventDefault();
+        }
+        openLightbox(target.src, target.alt);
+      }
+
+      document.querySelectorAll('#extracurriculars img').forEach(function (img) {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', onPhotoClick);
+      });
+
+      if (closeButton) {
+        closeButton.addEventListener('click', closeLightbox);
+      }
+
+      if (lightbox) {
+        lightbox.addEventListener('click', function (event) {
+          if (event.target === lightbox) closeLightbox();
+        });
+      }
+
+      window.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') closeLightbox();
+      });
+    })();
   </script>
 </body>
 
